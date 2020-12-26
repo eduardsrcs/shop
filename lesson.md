@@ -177,3 +177,6 @@ So, fill some records to **Categories** table
 | 1    | Мобильные телефоны  | mobiles  | Описание мобильных телефонов              |       |            |            |
 | 2    | Портативная техника | portable | Описание для раздела портативной техники. |       |            |            |
 | 3    | Бытовая техника     | technics | Описание бытовой техники.                 |       |            |            |
+
+[time 14:00](https://www.youtube.com/watch?v=mB3R4AHDJFU&list=PL5RABzpdpqAlSRJS1KExmJsaPFQc161Dy&index=3&t=840s)
+
