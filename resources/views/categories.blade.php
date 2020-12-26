@@ -32,17 +32,16 @@
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">₽<span class="caret"></span></a>
                     <ul class="dropdown-menu">
-                                                    <li><a href="http://internet-shop.tmweb.ru/currency/RUB">₽</a></li>
-                                                    <li><a href="http://internet-shop.tmweb.ru/currency/USD">$</a></li>
-                                                    <li><a href="http://internet-shop.tmweb.ru/currency/EUR">€</a></li>
-                                            </ul>
+                        <li><a href="http://internet-shop.tmweb.ru/currency/RUB">₽</a></li>
+                        <li><a href="http://internet-shop.tmweb.ru/currency/USD">$</a></li>
+                        <li><a href="http://internet-shop.tmweb.ru/currency/EUR">€</a></li>
+                    </ul>
                 </li>
             </ul>
 
             <ul class="nav navbar-nav navbar-right">
-                                    <li><a href="http://internet-shop.tmweb.ru/login">Войти</a></li>
-
-                            </ul>
+                <li><a href="http://internet-shop.tmweb.ru/login">Войти</a></li>
+            </ul>
         </div>
     </div>
 </nav>
@@ -50,7 +49,7 @@
 <div class="container">
     <div class="starter-template">
                                     <div class="panel">
-            <a href="http://internet-shop.tmweb.ru/mobiles">
+            <a href="/mobiles">
                 <img src="http://internet-shop.tmweb.ru/storage/categories/mobile.jpg">
                 <h2>Мобильные телефоны</h2>
             </a>
@@ -59,7 +58,7 @@
             </p>
         </div>
             <div class="panel">
-            <a href="http://internet-shop.tmweb.ru/portable">
+            <a href="/portable">
                 <img src="http://internet-shop.tmweb.ru/storage/categories/portable.jpg">
                 <h2>Портативная техника</h2>
             </a>
@@ -68,7 +67,7 @@
             </p>
         </div>
             <div class="panel">
-            <a href="http://internet-shop.tmweb.ru/appliances">
+            <a href="/appliances">
                 <img src="http://internet-shop.tmweb.ru/storage/categories/appliance.jpg">
                 <h2>Бытовая техника</h2>
             </a>

@@ -1,13 +1,10 @@
-
 <!doctype html>
 <html lang="en">
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-
     <title>Интернет Магазин: Товар</title>
-
     <link href="https://fonts.googleapis.com/css?family=Raleway:100,600" rel="stylesheet" type="text/css">
     <script src="/js/jquery.min.js"></script>
     <script src="/js/bootstrap.min.js"></script>
@@ -40,26 +37,28 @@
             </ul>
 
             <ul class="nav navbar-nav navbar-right">
-                                    <li><a href="http://internet-shop.tmweb.ru/login">Войти</a></li>
-
-                            </ul>
+                <li><a href="http://internet-shop.tmweb.ru/login">Войти</a></li>
+            </ul>
         </div>
     </div>
 </nav>
 
 <div class="container">
     <div class="starter-template">
-                            <h1>iPhone X 64GB</h1>
-    <h2>Мобильные телефоны</h2>
-    <p>Цена: <b>71990 ₽</b></p>
-    <img src="http://internet-shop.tmweb.ru/storage/products/iphone_x.jpg">
-    <p>Отличный продвинутый телефон с памятью на 64 gb</p>
+        <h1>iPhone X 64GB</h1>
+        <h3>{{$product}}</h3>
+        <h2>Мобильные телефоны</h2>
 
-            <form action="http://internet-shop.tmweb.ru/basket/add/1" method="POST">
+        <p>Цена: <b>71990 ₽</b></p>
+        <img src="http://internet-shop.tmweb.ru/storage/products/iphone_x.jpg">
+        <p>Отличный продвинутый телефон с памятью на 64 gb</p>
+
+        <form action="http://internet-shop.tmweb.ru/basket/add/1" method="POST">
             <button type="submit" class="btn btn-success" role="button">Добавить в корзину</button>
 
-            <input type="hidden" name="_token" value="kkXCBAowA7qbbRuJoQBAyB6fH7WGKrQKJnmaaMM3">        </form>
-        </div>
+            <input type="hidden" name="_token" value="kkXCBAowA7qbbRuJoQBAyB6fH7WGKrQKJnmaaMM3">
+        </form>
+    </div>
 </div>
 </body>
 </html>
