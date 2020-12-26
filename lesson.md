@@ -26,4 +26,7 @@ php artisan make:controller MainController
 
 ### Debug methods
 
-dd() ends script execution, dump() doesn't.
+**dd()** ends script execution, **dump()** doesn't.
+
+[time 4:30](https://www.youtube.com/watch?v=-iuhVrRbBJc&list=PL5RABzpdpqAlSRJS1KExmJsaPFQc161Dy&index=2&t=270s)
+
