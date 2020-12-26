@@ -117,10 +117,12 @@ public function up()
 {
     Schema::create('products', function (Blueprint $table) {
         $table->id();
+        $table->integer('category_id');
         $table->string('name');
         $table->string('code');
         $table->text('description')->nullable();
         $table->text('image')->nullable();
+        $table->double('price')->default(0);
         $table->timestamps();
     });
 }
@@ -132,3 +134,46 @@ run:
 php artisan migrate
 ```
 
+### Create model
+
+```
+php artisan make:model Product
+```
+
+### Create model with migration
+
+```
+php artisan make:model -m Category
+```
+
+[time 7:40](https://www.youtube.com/watch?v=mB3R4AHDJFU&list=PL5RABzpdpqAlSRJS1KExmJsaPFQc161Dy&index=3&t=460s)
+
+### Rollback migrations
+
+```sh
+php artisan migrate:rollback
+```
+
+### Creating categories migration
+
+```php
+public function up()
+{
+    Schema::create('categories', function (Blueprint $table) {
+        $table->id();
+        $table->string('name');
+        $table->string('code');
+        $table->text('description')->nullable();
+        $table->text('image')->nullable();
+        $table->timestamps();
+    });
+}
+```
+
+So, fill some records to **Categories** table
+
+| id   | name                | code     | description                               | image | created_at | updated_at |
+| ---- | ------------------- | -------- | ----------------------------------------- | ----- | ---------- | ---------- |
+| 1    | Мобильные телефоны  | mobiles  | Описание мобильных телефонов              |       |            |            |
+| 2    | Портативная техника | portable | Описание для раздела портативной техники. |       |            |            |
+| 3    | Бытовая техника     | technics | Описание бытовой техники.                 |       |            |            |
