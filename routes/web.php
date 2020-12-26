@@ -14,14 +14,7 @@ use App\Http\Controllers\MainController;
 |
 */
 
-// Route::get('/', function () {
-// });
 Route::get('/', [MainController::class, 'index']);
+Route::get('/categories', [MainController::class, 'categories']);
+Route::get('/mobiles/{product}', [MainController::class, 'product']);
 
-Route::get('/categories', function () {
-    return view('categories');
-});
-
-Route::get('/mobiles/iphone_x_64', function () {
-    return view('product');
-});
