@@ -250,5 +250,183 @@ Route::get('/', [MainController::class, 'index'])->name('index');
 Route::get('/categories', [MainController::class, 'categories'])->name('categories');
 Route::get('/categories/{category}', [MainController::class, 'category'])->name('category');
 Route::get('/mobiles/{product?}', [MainController::class, 'product'])->name('product');
+Route::get('/basket', [MainController::class, 'basket'])->name('basket');
+Route::get('/basket/place', [MainController::class, 'basketPlace'])->name('basket-place');
 ```
+
+### Add some views
+
+```
+touch resources/views/basket.blade.php
+touch resources/views/order.blade.php
+```
+
+### Check for routes
+
+```sh
+php artisan route:list
+```
+
+### Using route names in views
+
+```php+HTML
+<a href="{{ route('index') }}">Все товары</a>
+```
+
+#### placing route name with additional parameters
+
+`resources/views/categories.blade.php`
+
+```php+HTML
+<!-- <a href="/categories/{{$cat->code}}"> -->
+<a href="{{ route('category', $cat->code)}}">
+```
+
+### Parameters to included views
+
+in `resources/views/category.blade.php`
+
+```php
+@include('card', ['category' => $category])
+```
+
+## [Laravel: интернет магазин ч.5: Eloquent связи](https://www.youtube.com/watch?v=V0XhLmxlVF4&list=PL5RABzpdpqAlSRJS1KExmJsaPFQc161Dy&index=5)
+
+add some data
+
+```sql
+INSERT INTO `products` (`id`, `name`, `code`, `category_id`, `image`, `description`, `price`, `created_at`, `updated_at`) VALUES
+(1, 'iPhone X 64GB', 'iphone_x_64', 1, NULL, 'Отличный продвинутый телефон с памятью на 64 gb', 71990, NULL, NULL),
+(2, 'iPhone X 256GB', 'iphone_x_256', 1, NULL, 'Отличный продвинутый телефон с памятью на 256 gb', 89990, NULL, NULL),
+(3, 'HTC One S', 'htc_one_s', 1, NULL, 'Зачем платить за лишнее? Легендарный HTC One S', 12490, NULL, NULL),
+(4, 'iPhone 5SE', 'iphone_5se', 1, NULL, 'Отличный классический iPhone', 17221, NULL, NULL),
+(5, 'Наушники Beats Audio', 'beats_audio', 2, NULL, 'Отличный звук от Dr. Dre', 20221, NULL, NULL),
+(6, 'Камера GoPro', 'gopro', 2, NULL, 'Снимай самые яркие моменты с помощью этой камеры', 12000, NULL, NULL),
+(7, 'Камера Panasonic HC-V770', 'panasonic_hc-v770', 2, NULL, 'Для серьёзной видео съемки нужна серьёзная камера. Panasonic HC-V770 для этих целей лучший выбор!', 27900, NULL, NULL),
+(8, 'Кофемашина DeLongi', 'delongi', 3, NULL, 'Хорошее утро начинается с хорошего кофе!', 25200, NULL, NULL),
+(9, 'Холодильник Haier', 'haier', 3, NULL, 'Для большой семьи большой холодильник!', 40200, NULL, NULL),
+(10, 'Блендер Moulinex', 'moulinex', 3, NULL, 'Для самых смелых идей', 4200, NULL, NULL),
+(11, 'Мясорубка Bosch', 'bosch', 3, NULL, 'Любите домашние котлеты? Вам определенно стоит посмотреть на эту мясорубку!', 9200, NULL, NULL);
+```
+
+in `app/Http/Controllers/MainController.php`
+
+```php
+public function index() {
+    $products = Product::get();
+    return view('index', compact('products'));
+}
+```
+
+in `resources/views/index.blade.php`
+
+```php+HTML
+<div class="row">
+    @foreach($products as $product)
+    @include('card', compact('product'))
+    @endforeach
+</div>
+```
+
+in `resources/views/card.blade.php`
+
+```php+HTML
+<h3>{{$product->name}}</h3>
+<p>{{$product->price}} ₽</p>
+```
+
+in Product model: ``
+
+```php
+public function getCategory() {
+    // $category = Category::where('id', $this->category_id)->first();
+    return Category::find($this->category_id);
+}
+```
+
+again, in `resources/views/card.blade.php`
+
+```php+HTML
+{{ $product->getCategory()->name}}
+```
+
+#### do same for category...
+
+`app/Http/Controllers/MainController.php`
+
+```php
+public function category($code) {
+    $category = Category::where('code', $code)->first();
+    $products = Product::where('category_id', $category->id)->get();
+    return view('category', compact('category', 'products'));
+}
+```
+
+### [Single responsibility principle](https://www.youtube.com/watch?v=V0XhLmxlVF4&list=PL5RABzpdpqAlSRJS1KExmJsaPFQc161Dy&index=5&t=355s)
+
+### Add relation to Product 
+
+in `app/Models/Product.php`
+
+```php
+// public function getCategory() {
+//     // $category = Category::where('id', $this->category_id)->first();
+//     return Category::find($this->category_id);
+// }
+
+public function category() {
+    return $this->belongsTo(Category::class);
+}
+```
+
+in ``
+
+```php+HTML
+{{ $product->getCategory()->name}}
+```
+
+change to
+
+```
+{{ $product->category->name }}
+```
+
+### Add relation to Category
+
+`app/Models/Category.php`
+
+```php
+public function products() {
+    return $this->hasMany(Product::class);
+}
+```
+
+`resources/views/category.blade.php`
+
+```
+@foreach($category->products as $product)
+@include('card', compact('product'))
+@endforeach
+```
+
+now, in `app/Http/Controllers/MainController.php`->category() we can remove getting products:
+
+```
+public function category($code) {
+    $category = Category::where('code', $code)->first();
+    $products = Product::where('category_id', $category->id)->get();
+    return view('category', compact('category', 'products'));
+}
+```
+
+to
+
+```
+public function category($code) {
+    $category = Category::where('code', $code)->first();
+    return view('category', compact('category'));
+}
+```
+
+
 

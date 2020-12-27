@@ -5,8 +5,9 @@
     <h1>{{$category->name}}</h1>
     <p>{{$category->description}}</p>
     <div class="row">
-        @include('card')
-        @include('card')
+        @foreach($category->products as $product)
+        @include('card', compact('product'))
+        @endforeach
     </div>
 </div>
 @endsection
