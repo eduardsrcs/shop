@@ -14,9 +14,12 @@
             <p>
             <form action="{{route('basket')}}" method="GET">
                 <button type="submit" class="btn btn-primary" role="button">В корзину</button>
-                <a href="http://internet-shop.tmweb.ru/mobiles/iphone_x_256"
+                <a href="{{route('product', [$product->category->code, $product->code])}}"
                     class="btn btn-default"
-                    role="button">Подробнее</a>
+                    role="button">
+                    Подробнее
+                </a>
+
                 <input type="hidden" name="_token" value="kkXCBAowA7qbbRuJoQBAyB6fH7WGKrQKJnmaaMM3">            </form>
             </p>
         </div>

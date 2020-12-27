@@ -428,5 +428,21 @@ public function category($code) {
 }
 ```
 
+### Use some other possibilities of relations
 
+in `resources/views/category.blade.php` we can get count of products of each category...
+
+```php+HTML
+<h1>{{$category->name}} {{$category->products->count()}}</h1>
+```
+
+in `resources/views/card.blade.php`
+
+```php+HTML
+<a href="{{route('product', [$product->category->code, $product->code])}}"
+    class="btn btn-default"
+    role="button">
+    Подробнее
+</a>
+```
 
