@@ -7,7 +7,7 @@
             <h3>iPhone X 256GB</h3>
             <p>89990 ₽</p>
             <p>
-            <form action="/basket/add/2" method="POST">
+            <form action="/basket" method="POST">
                 <button type="submit" class="btn btn-primary" role="button">В корзину</button>
                 <a href="http://internet-shop.tmweb.ru/mobiles/iphone_x_256"
                     class="btn btn-default"
