@@ -186,3 +186,69 @@ So, fill some records to **Categories** table
 touch resources/views/master.blade.php
 ```
 
+use **@section('name')** construction. use second parameter. Optional we can send parameters from each template to master:
+
+`resources/views/categories.blade.php`
+
+```php
+@extends('master', ['tile' => 'cats'])
+```
+
+`resources/views/master.blade.php`
+
+```php+HTML
+<a class="navbar-brand" href="http://internet-shop.tmweb.ru">Интернет Магазин {{$tile ?? ''}}</a>
+```
+
+
+
+### Separate product card template.
+
+So, product templates are the same in most of places.
+
+```
+touch resources/views/card.blade.php
+```
+
+take card from index:
+
+```php+HTML
+<div class="col-sm-6 col-md-4">
+    <div class="thumbnail">
+        <div class="labels">
+        </div>
+        <img src="http://internet-shop.tmweb.ru/storage/products/iphone_x_silver.jpg" alt="iPhone X 256GB">
+        <div class="caption">
+            <h3>iPhone X 256GB</h3>
+            <p>89990 ₽</p>
+            <p>
+            <form action="http://internet-shop.tmweb.ru/basket/add/2" method="POST">
+                <button type="submit" class="btn btn-primary" role="button">В корзину</button>
+                <a href="http://internet-shop.tmweb.ru/mobiles/iphone_x_256"
+                    class="btn btn-default"
+                    role="button">Подробнее</a>
+                <input type="hidden" name="_token" value="kkXCBAowA7qbbRuJoQBAyB6fH7WGKrQKJnmaaMM3">            </form>
+            </p>
+        </div>
+    </div>
+</div>
+
+```
+
+in `resources/views/index.blade.php` and `resources/views/index.blade.php` include card using **@include()** directive:
+
+```php
+@include('card')
+```
+
+### Adjusting routes
+
+in `routes/web.php` give names to routes.
+
+```php
+Route::get('/', [MainController::class, 'index'])->name('index');
+Route::get('/categories', [MainController::class, 'categories'])->name('categories');
+Route::get('/categories/{category}', [MainController::class, 'category'])->name('category');
+Route::get('/mobiles/{product?}', [MainController::class, 'product'])->name('product');
+```
+

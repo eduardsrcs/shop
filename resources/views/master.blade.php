@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Интернет Магазин: Все Категории</title>
+    <title>@yield('title')</title>
     <link href="https://fonts.googleapis.com/css?family=Raleway:100,600" rel="stylesheet" type="text/css">
     <script src="/js/jquery.min.js"></script>
     <script src="/js/bootstrap.min.js"></script>
@@ -15,12 +15,12 @@
 <nav class="navbar navbar-inverse navbar-fixed-top">
     <div class="container">
         <div class="navbar-header">
-            <a class="navbar-brand" href="http://internet-shop.tmweb.ru">Интернет Магазин</a>
+            <a class="navbar-brand" href="http://internet-shop.tmweb.ru">Интернет Магазин {{$tile ?? ''}}</a>
         </div>
         <div id="navbar" class="collapse navbar-collapse">
             <ul class="nav navbar-nav">
                 <li ><a href="http://internet-shop.tmweb.ru">Все товары</a></li>
-                <li class="active"><a href="http://internet-shop.tmweb.ru/categories">Категории</a>
+                <li class="active"><a href="/categories">Категории</a>
                 </li>
                 <li ><a href="http://internet-shop.tmweb.ru/basket">В корзину</a></li>
                 <li><a href="http://internet-shop.tmweb.ru/reset">Сбросить проект в начальное состояние</a></li>
