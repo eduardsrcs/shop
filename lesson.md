@@ -572,3 +572,5 @@ public function basket() {
 
 for GET. Accordingly, update `resources/views/basket.blade.php`
 
+## [Laravel: интернет магазин ч.7: Pivot table](https://www.youtube.com/watch?v=ZxQJyT_ydGQ&list=PL5RABzpdpqAlSRJS1KExmJsaPFQc161Dy&index=7)
+
