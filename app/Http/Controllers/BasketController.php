@@ -32,5 +32,8 @@ class BasketController extends Controller
         return view('basket', compact('order'));
     }
 
+    public function basketRemove() {
+        return dd('Basket remove')
+    }
 
 }

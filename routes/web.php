@@ -23,3 +23,4 @@ Route::get('/categories/{category}', [MainController::class, 'category'])->name(
 Route::get('/{category}/{product?}', [MainController::class, 'product'])->name('product');
 
 Route::post('/basket/add/{id}', [BasketController::class, 'basketAdd'])->name('basket-add');
+Route::post('/basket/remove/{id}', [BasketController::class, 'basketRemove'])->name('basket-add');
