@@ -180,3 +180,9 @@ So, fill some records to **Categories** table
 
 [time 14:00](https://www.youtube.com/watch?v=mB3R4AHDJFU&list=PL5RABzpdpqAlSRJS1KExmJsaPFQc161Dy&index=3&t=840s)
 
+## [Laravel: интернет магазин ч.4: Мастер шаблон](https://www.youtube.com/watch?v=0Aspgkw2JUM&list=PL5RABzpdpqAlSRJS1KExmJsaPFQc161Dy&index=4)
+
+```sh
+touch resources/views/master.blade.php
+```
+

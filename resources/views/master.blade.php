@@ -1,13 +1,10 @@
-@extends('master')
 <!doctype html>
 <html lang="en">
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-
     <title>Интернет Магазин: Все Категории</title>
-
     <link href="https://fonts.googleapis.com/css?family=Raleway:100,600" rel="stylesheet" type="text/css">
     <script src="/js/jquery.min.js"></script>
     <script src="/js/bootstrap.min.js"></script>
@@ -47,19 +44,7 @@
 </nav>
 
 <div class="container">
-    <div class="starter-template">
-        @foreach($categories as $cat)
-            <div class="panel">
-                <a href="{{$cat->code}}">
-                    <img src="http://internet-shop.tmweb.ru/storage/categories/{{$cat->image}}">
-                    <h2>{{$cat->name}}</h2>
-                </a>
-                <p>
-                    {{$cat->description}}
-                </p>
-            </div>
-        @endforeach
-    </div>
+    @yield('content')
 </div>
 </body>
 </html>
