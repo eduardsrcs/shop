@@ -12,15 +12,15 @@
             <p>{{$product->price}} ₽</p>
             {{ $product->category->name }}
             <p>
-            <form action="{{route('basket')}}" method="GET">
+            <form action="{{route('basket-add', $product)}}" method="POST">
                 <button type="submit" class="btn btn-primary" role="button">В корзину</button>
                 <a href="{{route('product', [$product->category->code, $product->code])}}"
                     class="btn btn-default"
                     role="button">
                     Подробнее
                 </a>
-
-                <input type="hidden" name="_token" value="kkXCBAowA7qbbRuJoQBAyB6fH7WGKrQKJnmaaMM3">            </form>
+                @csrf
+             </form>
             </p>
         </div>
     </div>

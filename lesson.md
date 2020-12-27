@@ -500,3 +500,75 @@ php artisan migrate
 
 why 'order_product', not 'product_order'? Just in alphabet order...
 
+OK, then...
+
+#### Add order to products many relation
+
+in `app/Models/Order.php`
+
+```php
+public function products() {
+    return $this->belongsToMany(Product::class);
+}
+```
+
+### Move some methods from MainController
+
+```
+php artisan make:controller BasketController
+```
+
+move basket actions in it and configure `routes/web.php` accordingly.
+
+### Add link and route to basket-add
+
+`routes/web.php`
+
+```php
+Route::post('/basket/add/{id}', [BasketController::class, 'basketAdd'])->name('basket-add');
+```
+
+### CSRF token
+
+when we go to basket via POST, we get 419. to fix it, we need to use **@csrf** helper.
+
+`resources/views/card.blade.php`
+
+```php+HTML
+<form action="{{route('basket-add', $product)}}" method="POST">
+    ...
+    @csrf
+```
+
+### Processing order
+
+`app/Http/Controllers/BasketController.php`
+
+```php
+public function basketAdd($productId) {
+    $orderId = session('orderId');
+    if(is_null($orderId)) {
+        $order = Order::create();
+        session(['orderId' => $order->id]);
+    } else {
+        $order = Order::find($orderId);
+    }
+    $order->products()->attach($productId);
+    return view('basket', compact('order'));
+}
+```
+
+for POST and
+
+```php
+public function basket() {
+    $orderId = session('orderId');
+    if(!is_null($orderId)){
+        $order = Order::findOrFail($orderId);
+    }
+    return view('basket', compact('order'));
+}
+```
+
+for GET. Accordingly, update `resources/views/basket.blade.php`
+

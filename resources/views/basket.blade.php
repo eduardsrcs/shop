@@ -15,11 +15,12 @@
             </tr>
             </thead>
             <tbody>
+                @foreach($order->products as $product)
                 <tr>
                     <td>
                         <a href="http://internet-shop.tmweb.ru/mobiles/iphone_x_256">
                             <img height="56px" src="http://internet-shop.tmweb.ru/storage/products/iphone_x_silver.jpg">
-                            iPhone X 256GB
+                            {{$product->name}}
                         </a>
                     </td>
                     <td><span class="badge">1</span>
@@ -35,9 +36,10 @@
                                 <input type="hidden" name="_token" value="UWj9tTpm3hULHoKG3QIcxSQTHdqjInI8CBLYWtMU">                            </form>
                         </div>
                     </td>
-                    <td>89990 ₽</td>
-                    <td>89990 ₽</td>
+                    <td>{{$product->price}}</td>
+                    <td>{{$product->price}}</td>
                 </tr>
+                @endforeach
                 <tr>
                     <td colspan="3">Общая стоимость:</td>
                     <td>89990 ₽</td>
