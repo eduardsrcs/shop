@@ -41,7 +41,7 @@
                 <tr>
                     <td colspan="3">Общая стоимость:</td>
                     <td>89990 ₽</td>
-                </tr>
+            </tr>
             </tbody>
         </table>
         <br>

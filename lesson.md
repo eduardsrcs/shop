@@ -446,3 +446,57 @@ in `resources/views/card.blade.php`
 </a>
 ```
 
+## [Laravel: интернет магазин ч.6: Многие-ко-многим, Сессия](https://www.youtube.com/watch?v=60DbUa82TMw&list=PL5RABzpdpqAlSRJS1KExmJsaPFQc161Dy&index=6)
+
+### Let's make basket
+
+```sh
+php artisan make:model -m Order
+```
+
+in `database/migrations/2020_12_27_162744_create_orders_table.php` add fields:
+
+```php
+public function up()
+{
+    Schema::create('orders', function (Blueprint $table) {
+        $table->id();
+        $table->tinyInteger('status')->default(0);
+        $table->string('name')->nullable();
+        $table->string('phone')->nullable();
+        $table->timestamps();
+    });
+}
+```
+
+then
+
+```sh
+php artisan migrate
+```
+
+and then
+
+```
+php artisan make:migration create_order_product_table
+```
+
+in `database/migrations/2020_12_27_163336_create_order_product_table.php` add two fields:
+
+```php
+Schema::create('order_product', function (Blueprint $table) {
+    $table->id();
+    $table->integer('order_id');
+    $table->integer('product_id');
+    $table->timestamps();
+});
+```
+
+again
+
+```
+php artisan migrate
+```
+
+why 'order_product', not 'product_order'? Just in alphabet order...
+

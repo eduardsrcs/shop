@@ -3,7 +3,7 @@
 @section('content')
     <div class="starter-template">
         <h1>iPhone X 64GB</h1>
-        <h3>{{$product}}</h3>
+        <!-- <h3>{{$product}}</h3> -->
         <h2>Мобильные телефоны</h2>
 
         <p>Цена: <b>71990 ₽</b></p>
