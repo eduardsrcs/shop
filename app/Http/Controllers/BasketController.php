@@ -30,7 +30,13 @@ class BasketController extends Controller
         } else {
             $order = Order::find($orderId);
         }
-        $order->products()->attach($productId);
+        if($order->products->contains($productId)) {
+            $pivotRow = $order->products()->where('product_id', $productId)->first()->pivot;
+            $pivotRow->count++;
+            $pivotRow->update();
+        } else {
+            $order->products()->attach($productId);
+        }
         return redirect(route('basket'));
     }
 
@@ -41,7 +47,15 @@ class BasketController extends Controller
             return redirect(route('basket'));
         }
         $order = Order::find($orderId);
-        $order->products()->detach($productId);
+        if($order->products->contains($productId)) {
+            $pivotRow = $order->products()->where('product_id', $productId)->first()->pivot;
+            if($pivotRow->count < 2) {
+                $order->products()->detach($productId);
+            } else {
+                $pivotRow->count--;
+                $pivotRow->update();
+            }
+        }
         return redirect(route('basket'));
     }
 
