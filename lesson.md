@@ -574,3 +574,85 @@ for GET. Accordingly, update `resources/views/basket.blade.php`
 
 ## [Laravel: интернет магазин ч.7: Pivot table](https://www.youtube.com/watch?v=ZxQJyT_ydGQ&list=PL5RABzpdpqAlSRJS1KExmJsaPFQc161Dy&index=7)
 
+### Complete basketRemove action
+
+`app/Http/Controllers/BasketController.php`
+
+```php
+public function basketRemove($productId) {
+    $orderId = session('orderId');
+
+    if(is_null($orderId)) {
+        return redirect(route('basket'));
+    }
+    $order = Order::find($orderId);
+    $order->products()->detach($productId);
+    return redirect(route('basket'));
+}
+```
+
+### Implement product counting on basket page
+
+```
+php artisan make:migration update_order_product_table
+```
+
+`database/migrations/2020_12_28_113544_update_order_product_table.php`
+
+```php
+<?php
+
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
+class UpdateOrderProductTable extends Migration
+{
+    /**
+     * Run the migrations.
+     *
+     * @return void
+     */
+    public function up()
+    {
+        Schema::table('order_product', function (Blueprint $table) {
+            $table->integer('count')->default(1);
+        });
+    }
+
+    /**
+     * Reverse the migrations.
+     *
+     * @return void
+     */
+    public function down()
+    {
+        Schema::table('order_product', function (Blueprint $table) {
+            $table->dropColumn('count');
+        });
+    }
+}
+
+```
+
+then
+
+```sh
+php artisan migrate
+```
+
+[time 6:10](https://www.youtube.com/watch?v=ZxQJyT_ydGQ&list=PL5RABzpdpqAlSRJS1KExmJsaPFQc161Dy&index=7&t=430s)
+
+update migration:
+
+```php
+$table->integer('count')->default(1)->after('product_id');
+```
+
+then
+
+```
+php artisan migrate:rollback --step=1
+php artisan migrate
+```
+

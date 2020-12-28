@@ -15,6 +15,7 @@
             </tr>
             </thead>
             <tbody>
+                @if($order)
                 @foreach($order->products as $product)
                 <tr>
                     <td>
@@ -25,10 +26,11 @@
                     </td>
                     <td><span class="badge">1</span>
                         <div class="btn-group form-inline">
-                            <form action="http://internet-shop.tmweb.ru/basket/remove/2" method="POST">
+                            <form action="{{route('basket-remove', $product)}}" method="POST">
                                 <button type="submit" class="btn btn-danger" href=""><span
                                         class="glyphicon glyphicon-minus" aria-hidden="true"></span></button>
                                 <input type="hidden" name="_token" value="UWj9tTpm3hULHoKG3QIcxSQTHdqjInI8CBLYWtMU">
+                                @csrf
                             </form>
                             <form action="{{route('basket-add', $product)}}" method="POST">
                                 <button type="submit" class="btn btn-success"
@@ -42,6 +44,7 @@
                     <td>{{$product->price}}</td>
                 </tr>
                 @endforeach
+                @endif
                 <tr>
                     <td colspan="3">Общая стоимость:</td>
                     <td>89990 ₽</td>

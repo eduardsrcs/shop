@@ -10,6 +10,7 @@ class BasketController extends Controller
 
     public function basket() {
         $orderId = session('orderId');
+        $order = null;
         if(!is_null($orderId)){
             $order = Order::findOrFail($orderId);
         }
@@ -22,6 +23,7 @@ class BasketController extends Controller
 
     public function basketAdd($productId) {
         $orderId = session('orderId');
+
         if(is_null($orderId)) {
             $order = Order::create();
             session(['orderId' => $order->id]);
@@ -29,11 +31,18 @@ class BasketController extends Controller
             $order = Order::find($orderId);
         }
         $order->products()->attach($productId);
-        return view('basket', compact('order'));
+        return redirect(route('basket'));
     }
 
-    public function basketRemove() {
-        return dd('Basket remove')
+    public function basketRemove($productId) {
+        $orderId = session('orderId');
+
+        if(is_null($orderId)) {
+            return redirect(route('basket'));
+        }
+        $order = Order::find($orderId);
+        $order->products()->detach($productId);
+        return redirect(route('basket'));
     }
 
 }
