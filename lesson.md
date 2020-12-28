@@ -768,6 +768,17 @@ public function getFullPrice() {
 
 ## [Laravel: интернет магазин ч.8: Request, Flash](https://www.youtube.com/watch?v=q5VvjX-d2JE&list=PL5RABzpdpqAlSRJS1KExmJsaPFQc161Dy&index=8)
 
+### Some optimization
+
+```sh
+mkdir resources/views/layouts
+mv resources/views/master.blade.php resources/views/layouts/
+```
+
+move <div class="starter-template"> to master view.
+
+change all views accordingly
+
 ### Working on basket-place
 
 `app/Http/Controllers/BasketController.php`
@@ -797,3 +808,27 @@ add route:
 Route::post('/basket/place', [BasketController::class, 'basketConfirm'])->name('basket-confirm');
 ```
 
+#### Working with Request
+
+`app/Http/Controllers/BasketController.php`
+
+```php
+public function basketConfirm(Request $request) {
+    $orderId = session('orderId');
+    if(is_null($orderId)) {
+        return redirect(route('index'));
+    }
+    $order = Order::find($orderId);
+    $order->name = $request->name;
+    $order->phone = $request->phone;
+    $order->status = 1;
+    $order->save();
+
+    // dd($request->name);
+    return redirect(route('index'));
+}
+```
+
+
+
+[time 10:00](https://www.youtube.com/watch?v=q5VvjX-d2JE&list=PL5RABzpdpqAlSRJS1KExmJsaPFQc161Dy&index=8)

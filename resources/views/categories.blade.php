@@ -1,4 +1,4 @@
-@extends('layouts/master', ['tile' => 'cats'])
+@extends('layouts/master', ['tile' => 'c'])
 @section('title', 'Все категории')
 @section('content')
     @foreach($categories as $cat)
