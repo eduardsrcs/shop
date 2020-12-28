@@ -706,3 +706,94 @@ public function basketRemove($productId) {
 
 [time 12:50](https://www.youtube.com/watch?v=ZxQJyT_ydGQ&list=PL5RABzpdpqAlSRJS1KExmJsaPFQc161Dy&index=7&t=770s)
 
+in `resources/views/basket.blade.php`
+
+```php+HTML
+<span class="badge">{{$product->pivot->count}}</span>
+```
+
+#### Show amount
+
+in `app/Models/Product.php`
+
+```php
+public function getPriceForCount($count) {
+    return $this->price * $count;
+}
+```
+
+or 2nd variant:
+
+```php
+public function getPriceForCount() {
+    if(!is_null($this->pivot)){
+        return $this->pivot->count * $this->price;
+    }
+    return 0;
+}
+```
+
+and in `resources/views/basket.blade.php`
+
+```php+HTML
+<td>{{$product->getPriceForCount($product->pivot->count)}}</td>
+```
+
+or 2nd variant:
+
+```php+HTML
+<td>{{$product->getPriceForCount()}}</td>
+```
+
+#### Get full amount of order
+
+`app/Models/Order.php`
+
+```php
+public function getFullPrice() {
+    $sum = 0;
+    foreach($this->products as $product){
+        $sum += $product->getPriceForCount();
+    }
+    return $sum;
+}
+```
+
+`resources/views/basket.blade.php`
+
+```php+HTML
+<td colspan="3">Общая стоимость:</td>
+<td>{{$order->getFullPrice()}} ₽</td>
+```
+
+## [Laravel: интернет магазин ч.8: Request, Flash](https://www.youtube.com/watch?v=q5VvjX-d2JE&list=PL5RABzpdpqAlSRJS1KExmJsaPFQc161Dy&index=8)
+
+### Working on basket-place
+
+`app/Http/Controllers/BasketController.php`
+
+```php
+public function basketPlace() {
+    $orderId = session('orderId');
+    if(is_null($orderId)) {
+        return redirect(route('index'));
+    }
+    $order = Order::find($orderId);
+    return view('order', compact('order'));
+}
+```
+
+in `resources/views/order.blade.php`
+
+```php+HTML
+<p>Общая стоимость: <b>{{$order->getFullPrice()}} ₽.</b></p>
+```
+
+### Create basket-confirm route
+
+add route:
+
+```php
+Route::post('/basket/place', [BasketController::class, 'basketConfirm'])->name('basket-confirm');
+```
+
